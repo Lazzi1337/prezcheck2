@@ -26,44 +26,47 @@ export default function App() {
   };
 
   return (
-    <main style={{ padding: 20, fontFamily: "sans-serif" }}>
+    <div style={{ fontFamily: "sans-serif", padding: 20, maxWidth: 720, margin: "auto" }}>
       <h1>PrezCheck Demo</h1>
+
       <textarea
         rows={4}
-        style={{ width: "100%" }}
+        style={{ width: "100%", padding: 10, fontSize: 16 }}
+        placeholder="Skriv en påstand her …"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Skriv en påstand her …"
       />
-      <br />
+
       <button
         onClick={handleCheck}
         disabled={loading}
-        style={{ marginTop: 8 }}
+        style={{ marginTop: 10, padding: "8px 16px", fontSize: 16 }}
       >
         {loading ? "Sjekker …" : "Sjekk påstand"}
       </button>
+
       {result && (
-        <div style={{ marginTop: 16, background: "#eee", padding: 12 }}>
+        <div style={{ marginTop: 20, background: "#f4f4f4", padding: 20, borderRadius: 8 }}>
           <p><strong>Vurdering:</strong> {result.verdict}</p>
+          <p><strong>Feil i påstanden:</strong></p>
           <ul>
-            {result.inaccuracies.map((f, i) => (
-              <li key={i}>{f}</li>
+            {result.inaccuracies.map((item, index) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
           <p><strong>Rett versjon:</strong> {result.correct}</p>
           <p><strong>Kilder:</strong></p>
           <ul>
-            {result.sources.map((s, i) => (
-              <li key={i}>
-                <a href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.name}
+            {result.sources.map((src, index) => (
+              <li key={index}>
+                <a href={src.url} target="_blank" rel="noopener noreferrer">
+                  {src.name}
                 </a>
               </li>
             ))}
           </ul>
         </div>
       )}
-    </main>
+    </div>
   );
 }
