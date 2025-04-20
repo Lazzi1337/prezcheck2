@@ -22,16 +22,27 @@ export default function App() {
         ]
       });
       setLoading(false);
-    }, 1500);
+    }, 1000);
   };
 
   return (
-    <div style={{ fontFamily: "sans-serif", padding: 20, maxWidth: 720, margin: "auto" }}>
-      <h1>PrezCheck Demo</h1>
+    <div style={{
+      fontFamily: "system-ui, sans-serif",
+      padding: "2rem",
+      maxWidth: 700,
+      margin: "auto"
+    }}>
+      <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>PrezCheck Demo</h1>
 
       <textarea
         rows={4}
-        style={{ width: "100%", padding: 10, fontSize: 16 }}
+        style={{
+          width: "100%",
+          padding: "1rem",
+          fontSize: "1rem",
+          border: "1px solid #ccc",
+          borderRadius: "0.5rem"
+        }}
         placeholder="Skriv en påstand her …"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -40,21 +51,39 @@ export default function App() {
       <button
         onClick={handleCheck}
         disabled={loading}
-        style={{ marginTop: 10, padding: "8px 16px", fontSize: 16 }}
+        style={{
+          marginTop: "1rem",
+          padding: "0.6rem 1.2rem",
+          fontSize: "1rem",
+          borderRadius: "0.5rem",
+          background: "#222",
+          color: "#fff",
+          border: "none",
+          cursor: "pointer"
+        }}
       >
         {loading ? "Sjekker …" : "Sjekk påstand"}
       </button>
 
       {result && (
-        <div style={{ marginTop: 20, background: "#f4f4f4", padding: 20, borderRadius: 8 }}>
+        <div style={{
+          marginTop: "2rem",
+          background: "#f4f4f4",
+          padding: "1.5rem",
+          borderRadius: "0.75rem"
+        }}>
           <p><strong>Vurdering:</strong> {result.verdict}</p>
+
           <p><strong>Feil i påstanden:</strong></p>
           <ul>
             {result.inaccuracies.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
-          <p><strong>Rett versjon:</strong> {result.correct}</p>
+
+          <p><strong>Rett versjon:</strong></p>
+          <p>{result.correct}</p>
+
           <p><strong>Kilder:</strong></p>
           <ul>
             {result.sources.map((src, index) => (
